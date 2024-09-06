@@ -1,0 +1,110 @@
+[
+    {
+      "id": 1,
+      "number": 1,
+      "sentence": "Simplify 0.000215 x 0.000028 and express your answer in standard form.",
+      "options": {
+        "A": "6.03 x 10^9",
+        "B": "6.02 x 10^9",
+        "C": "6.03 x 10^-9",
+        "D": "6.02 x 10^-9"
+      },
+      "answer": "D"
+    },
+    {
+      "id": 2,
+      "number": 2,
+      "sentence": "Factorise x + y – ax – ay.",
+      "options": {
+        "A": "(x – y)(1 – a)",
+        "B": "(x + y)(1 – a)",
+        "C": "(x + y)(1 – a)",
+        "D": "(x – y)(1 + a)"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 3,
+      "number": 3,
+      "sentence": "In the diagram, ∠PSR = 22⁰, ∠SPQ = 58⁰ and ∠PQR = 41⁰. Calculate the obtuse angle QRS.",
+      "options": {
+        "A": "99⁰",
+        "B": "100⁰",
+        "C": "121⁰",
+        "D": "165⁰"
+      },
+      "answer": "C"
+    },
+    {
+      "id": 4,
+      "number": 4,
+      "sentence": "If 50% is the pass mark, how many students passed the test?",
+      "options": {
+        "A": "100",
+        "B": "85",
+        "C": "80",
+        "D": "70"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 5,
+      "number": 5,
+      "sentence": "What percentage of students had marks ranging from 35 to 50?",
+      "options": {
+        "A": "551%",
+        "B": "60%",
+        "C": "65%",
+        "D": "662%"
+      },
+      "answer": "C"
+    },
+    {
+      "id": 6,
+      "number": 6,
+      "sentence": "A car uses one litre of petrol for every 14 km. If one litre of petrol costs N63.00, how far can the car go with N900.00 worth of petrol?",
+      "options": {
+        "A": "420 km",
+        "B": "405 km",
+        "C": "210 km",
+        "D": "200 km"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 7,
+      "number": 7,
+      "sentence": "Correct 0.002473 to 3 significant figures.",
+      "options": {
+        "A": "0.002",
+        "B": "0.0024",
+        "C": "0.00247",
+        "D": "0.0025"
+      },
+      "answer": "C"
+    },
+    {
+      "id": 8,
+      "number": 8,
+      "sentence": "The sum of 2 consecutive whole numbers is 5/6 of their product. Find the numbers.",
+      "options": {
+        "A": "3, 4",
+        "B": "1, 2",
+        "C": "2, 3",
+        "D": "0, 1"
+      },
+      "answer": "C"
+    },
+    {
+      "id": 9,
+      "number": 9,
+      "sentence": "Simplify 1/3 + 2/4 × 3 - 1/2.",
+      "options": {
+        "A": "−2 1/3",
+        "B": "−2 1/4",
+        "C": "2 1/8"
+      },
+      "answer": "C"
+    }
+  ]
+  

@@ -1,0 +1,200 @@
+[
+  {
+    "id": 1,
+    "sentence": "Which of the following organisms is not classified as an animal?",
+    "options": {
+      "A": "Amoeba",
+      "B": "Paramecium",
+      "C": "Euglena",
+      "D": "Obelia"
+    },
+    "answer": "C"
+  },
+  {
+    "id": 2,
+    "sentence": "An organisation that operates at the cellular level of organisation, carries out its physiological activities by using its",
+    "options": {
+      "A": "cell membrane",
+      "B": "organelles",
+      "C": "small size",
+      "D": "cytoplasm"
+    },
+    "answer": "B"
+  },
+  {
+    "id": 3,
+    "sentence": "The organelle which eliminates water from the body of a protozoan is the",
+    "options": {
+      "A": "plasma membrane",
+      "B": "contractile vacuole",
+      "C": "nucleus",
+      "D": "cell wall"
+    },
+    "answer": "B"
+  },
+  {
+    "id": 4,
+    "sentence": "Which of the following cell types has the least number of mitochondria?",
+    "options": {
+      "A": "cardiac cells of the heart",
+      "B": "cells of the cornified layer",
+      "C": "muscle cells of the bladder",
+      "D": "muscle cells of the diaphragm"
+    },
+    "answer": "B"
+  },
+  {
+    "id": 5,
+    "sentence": "A typical plant cell is mainly distinguished from an animal cell by the possession of",
+    "options": {
+      "A": "chloroplast and nucleus",
+      "B": "cell wall and cytoplasm",
+      "C": "chloroplast and cell wall",
+      "D": "cell wall and mitochondria"
+    },
+    "answer": "C"
+  },
+  {
+    "id": 6,
+    "sentence": "Which of the following characteristics do fungi share in common with animals?",
+    "options": {
+      "A": "presence of digestive tract",
+      "B": "movement from one place to another",
+      "C": "storage of carbohydrate as glycogen",
+      "D": "movement of centrioles during cell division"
+    },
+    "answer": "C"
+  },
+  {
+    "id": 7,
+    "sentence": "Which of the following processes involve diffusion?",
+    "options": {
+      "A": "opening and closing of stomatal pores",
+      "B": "turgidity of herbaceous plants",
+      "C": "absorption of water through root hairs",
+      "D": "absorption of digested food into the villi"
+    },
+    "answer": "A"
+  },
+  {
+    "id": 8,
+    "sentence": "The mechanism of opening and closing of the stomata in plants is based on",
+    "options": {
+      "A": "turgidity and diffusion",
+      "B": "turgidity and flaccidity",
+      "C": "osmosis and diffusion",
+      "D": "diffusion and flaccidity"
+    },
+    "answer": "B"
+  },
+  {
+    "id": 9,
+    "sentence": "In cellular respiration, energy is made available to organisms by",
+    "options": {
+      "A": "removal of a phosphate group from ADP",
+      "B": "breaking off a phosphate group from ATP",
+      "C": "adding a phosphate group to glucose",
+      "D": "breaking off a hydrogen ion from NADPH"
+    },
+    "answer": "B"
+  },
+  {
+    "id": 10,
+    "sentence": "Excretion in Paramecium is by diffusion because",
+    "options": {
+      "A": "its habitat is water and moist places",
+      "B": "it has simple, small and few internal organs",
+      "C": "it has a large surface area to volume ratio",
+      "D": "it has a large efficient meganucleus"
+    },
+    "answer": "C"
+  },
+  {
+    "id": 11,
+    "sentence": "The axial skeleton is composed of the",
+    "options": {
+      "A": "skull and vertebra column",
+      "B": "limbs and girdles",
+      "C": "atlas and axis",
+      "D": "radius and ulna"
+    },
+    "answer": "A"
+  },
+  {
+    "id": 12,
+    "sentence": "The inorganic component of bones consists of",
+    "options": {
+      "A": "magnesium, sodium, and calcium",
+      "B": "magnesium, phosphorus, and calcium",
+      "C": "sodium, phosphorus, and calcium",
+      "D": "potassium, magnesium, and calcium"
+    },
+    "answer": "B"
+  },
+  {
+    "id": 13,
+    "sentence": "A pulse is best described as",
+    "options": {
+      "A": "contraction of arteries to let blood out",
+      "B": "contraction of veins to allow blood in",
+      "C": "dilation of arteries to accommodate blood rushing through",
+      "D": "pumping action of the heart to move blood around the body"
+    },
+    "answer": "C"
+  },
+  {
+    "id": 14,
+    "sentence": "The following characteristics are associated with the mammalian lungs except",
+    "options": {
+      "A": "large surface area",
+      "B": "expandable lungs",
+      "C": "moist surface",
+      "D": "highly vascularised"
+    },
+    "answer": "D"
+  },
+  {
+    "id": 15,
+    "sentence": "The excretory system in mammals consists of the following parts except",
+    "options": {
+      "A": "two kidneys",
+      "B": "two ureters",
+      "C": "two bladders",
+      "D": "one urethra"
+    },
+    "answer": "C"
+  },
+  {
+    "id": 16,
+    "sentence": "The organ that receives reduced flow of blood during vigorous exercise is the",
+    "options": {
+      "A": "brain",
+      "B": "heart",
+      "C": "lungs",
+      "D": "limbs"
+    },
+    "answer": "A"
+  },
+  {
+    "id": 17,
+    "sentence": "The ear pinna is strengthened by",
+    "options": {
+      "A": "blood pressure",
+      "B": "cartilage",
+      "C": "bone",
+      "D": "turgor pressure"
+    },
+    "answer": "B"
+  },
+  {
+    "id": 18,
+    "sentence": "The relationship between the retina and the brain is similar to that between the",
+    "options": {
+      "A": "cochlea and auditory nerve",
+      "B": "cochlea and the brain",
+      "C": "cochlea and the semi-circular canal",
+      "D": "ear drum and the brain"
+    },
+    "answer": "A"
+  }
+]

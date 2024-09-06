@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "number": 1,
+    "sentence": "The handsome profit from her fish business made Mrs Uba stop complaining about her husband's ______ salary.",
+    "options": {
+      "A": "ugly",
+      "B": "meagre",
+      "C": "modest",
+      "D": "lowly"
+    },
+    "answer": "B"
+  },
+  {
+    "id": 2,
+    "number": 2,
+    "sentence": "Chief Osa prefers fame in the village to ______ in the city.",
+    "options": {
+      "A": "neglect",
+      "B": "ignorance",
+      "C": "poverty",
+      "D": "obscurity"
+    },
+    "answer": "D"
+  },
+  {
+    "id": 3,
+    "number": 3,
+    "sentence": "The media houses should employ both novice and the ______ journalists.",
+    "options": {
+      "A": "apprentice",
+      "B": "probationer",
+      "C": "newcomer",
+      "D": "veteran"
+    },
+    "answer": "D"
+  },
+  {
+    "id": 4,
+    "number": 4,
+    "sentence": "While the registrar considers the matter insignificant, his deputy sees it as ______.",
+    "options": {
+      "A": "minute",
+      "B": "crucial",
+      "C": "compulsory",
+      "D": "marvellous"
+    },
+    "answer": "B"
+  },
+  {
+    "id": 5,
+    "number": 5,
+    "sentence": "It pays to be firm rather than ______ in a case like this.",
+    "options": {
+      "A": "flexible",
+      "B": "frank",
+      "C": "irresponsible",
+      "D": "careless"
+    },
+    "answer": "A"
+  },
+  {
+    "id": 6,
+    "number": 6,
+    "sentence": "Usually, Joseph is articulate in his speech, but today he sounds ______.",
+    "options": {
+      "A": "clear",
+      "B": "turgid",
+      "C": "timid",
+      "D": "incoherent"
+    },
+    "answer": "D"
+  },
+  {
+    "id": 7,
+    "number": 7,
+    "sentence": "The man's first wife is loyal, while his second is ______.",
+    "options": {
+      "A": "unfaithful",
+      "B": "unkind",
+      "C": "selfish",
+      "D": "hostile"
+    },
+    "answer": "A"
+  },
+  {
+    "id": 8,
+    "number": 8,
+    "sentence": "Rather than convict him, the impartial judge ______ him.",
+    "options": {
+      "A": "blamed",
+      "B": "dismissed",
+      "C": "upheld",
+      "D": "acquitted"
+    },
+    "answer": "D"
+  },
+  {
+    "id": 9,
+    "number": 9,
+    "sentence": "Instead of reconciling her parents, Roxanne worked hard at ______ them.",
+    "options": {
+      "A": "dividing",
+      "B": "destroying",
+      "C": "separating",
+      "D": "isolating"
+    },
+    "answer": "A"
+  },
+  {
+    "id": 10,
+    "number": 10,
+    "sentence": "We thought that Uncle Sam's health had improved but it had rather ______.",
+    "options": {
+      "A": "persisted",
+      "B": "deteriorated",
+      "C": "deepened",
+      "D": "decreased"
+    },
+    "answer": "B"
+  }
+]
