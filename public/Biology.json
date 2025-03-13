@@ -113,7 +113,7 @@
     "id": 11,
     "sentence": "The axial skeleton is composed of the",
     "options": {
-      "A": "skull and vertebra column",
+      "A": "skull and vertebral column",
       "B": "limbs and girdles",
       "C": "atlas and axis",
       "D": "radius and ulna"
@@ -196,5 +196,357 @@
       "D": "ear drum and the brain"
     },
     "answer": "A"
+  },
+  {
+    "id": 19,
+    "sentence": "The process by which green plants manufacture their own food is called",
+    "options": {
+      "A": "respiration",
+      "B": "photosynthesis",
+      "C": "transpiration",
+      "D": "fermentation"
+    },
+    "answer": "B"
+  },
+  {
+    "id": 20,
+    "sentence": "Which of the following is a characteristic of enzymes?",
+    "options": {
+      "A": "They are destroyed at low temperatures",
+      "B": "They act as catalysts in metabolic reactions",
+      "C": "They are used up during reactions",
+      "D": "They function best at high pH levels"
+    },
+    "answer": "B"
+  },
+  {
+    "id": 21,
+    "sentence": "The primary source of energy for Earth's climate system is",
+    "options": {
+      "A": "geothermal heat",
+      "B": "solar radiation",
+      "C": "ocean currents",
+      "D": "atmospheric pressure"
+    },
+    "answer": "B"
+  },
+  {
+    "id": 22,
+    "sentence": "Which blood vessel carries oxygenated blood from the lungs to the heart?",
+    "options": {
+      "A": "Pulmonary artery",
+      "B": "Pulmonary vein",
+      "C": "Aorta",
+      "D": "Vena cava"
+    },
+    "answer": "B"
+  },
+  {
+    "id": 23,
+    "sentence": "The movement of water molecules across a semi-permeable membrane from a region of high concentration to a region of low concentration is known as",
+    "options": {
+      "A": "diffusion",
+      "B": "osmosis",
+      "C": "active transport",
+      "D": "facilitated diffusion"
+    },
+    "answer": "B"
+  },
+  {
+    "id": 24,
+    "sentence": "Which part of the flower develops into the fruit after fertilization?",
+    "options": {
+      "A": "Ovary",
+      "B": "Stigma",
+      "C": "Style",
+      "D": "Anther"
+    },
+    "answer": "A"
+  },
+  {
+    "id": 25,
+    "sentence": "Which of the following is not a function of the liver?",
+    "options": {
+      "A": "Detoxification of harmful substances",
+      "B": "Production of bile",
+      "C": "Storage of glycogen",
+      "D": "Filtration of blood"
+    },
+    "answer": "D"
+  },
+  {
+    "id": 26,
+    "sentence": "The gas produced during photosynthesis that is vital for animal respiration is",
+    "options": {
+      "A": "carbon dioxide",
+      "B": "oxygen",
+      "C": "nitrogen",
+      "D": "hydrogen"
+    },
+    "answer": "B"
+  },
+  {
+    "id": 27,
+    "sentence": "Which of the following organisms exhibits both plant and animal characteristics?",
+    "options": {
+      "A": "Amoeba",
+      "B": "Paramecium",
+      "C": "Euglena",
+      "D": "Spirogyra"
+    },
+    "answer": "C"
+  },
+  {
+    "id": 28,
+    "sentence": "The main function of hemoglobin in the blood is to",
+    "options": {
+      "A": "transport oxygen",
+      "B": "fight infections",
+      "C": "clot blood",
+      "D": "regulate body temperature"
+    },
+    "answer": "A"
+  },
+  {
+    "id": 29,
+    "sentence": "Which of the following is a renewable resource?",
+    "options": {
+      "A": "Coal",
+      "B": "Petroleum",
+      "C": "Solar energy",
+      "D": "Natural gas"
+    },
+    "answer": "C"
+  },
+  {
+    "id": 30,
+    "sentence": "The type of nutrition in which organisms feed on dead organic matter is called",
+    "options": {
+      "A": "autotrophic",
+      "B": "saprophytic",
+      "C": "holozoic",
+      "D": "parasitic"
+    },
+    "answer": "B"
+  },
+  {
+    "id": 31,
+    "sentence": "Which of the following is a vestigial structure in humans?",
+    "options": {
+      "A": "Appendix",
+      "B": "Liver",
+      "C": "Kidney",
+      "D": "Stomach"
+    },
+    "answer": "A"
+  },
+  {
+    "id": 32,
+    "sentence": "The process of shedding the exoskeleton in arthropods is known as",
+    "options": {
+      "A": "metamorphosis",
+      "B": "ecdysis",
+      "C": "pupation",
+      "D": "molting"
+    },
+    "answer": "B"
+  },
+  {
+    "id": 33,
+    "sentence": "Which of the following is a biotic factor in an ecosystem?",
+    "options": {
+      "A": "Temperature",
+      "B": "Rainfall",
+      "C": "Predators",
+      "D": "Soil pH"
+    },
+    "answer": "C"
+  },
+  {
+    "id": 34,
+    "sentence": "The part of the brain responsible for coordinating voluntary movements is the",
+    "options": {
+      "A": "cerebrum",
+      "B": "cerebellum",
+      "C": "medulla oblongata",
+      "D": "hypothalamus"
+    },
+    "answer": "B"
+  },
+  {
+    "id": 35,
+    "sentence": "Which of the following is a nitrogenous waste product excreted by mammals?",
+    "options": {
+      "A": "Urea",
+      "B": "Ammonia",
+      "C": "Uric acid",
+      "D": "Carbon dioxide"
+    },
+    "answer": "A"
+  },
+  {
+    "id": 36,
+    "sentence": "The structural adaptation of birds for flight includes",
+    "options": {
+      "A": "solid bones",
+      "B": "hollow bones",
+      "C": "flat beak",
+      "D": "webbed feet"
+    },
+    "answer": "B"
+  },
+  {
+    "id": 37,
+    "sentence": "Which of the following is a primary consumer in a food chain?",
+    "options": {
+      "A": "Lion",
+      "B": "Grasshopper",
+      "C": "Eagle",
+      "D": "Snake"
+    },
+    "answer": "B"
+  },
+  {
+    "id": 38,
+    "sentence": "The hormone responsible for regulating blood sugar levels is",
+    "options": {
+      "A": "adrenaline",
+      "B": "insulin",
+      "C": "thyroxine",
+      "D": "estrogen"
+    },
+    "answer": "B"
+  },
+  {
+    "id": 39,
+    "sentence": "Which of the following is a symbiotic relationship where both organisms benefit?",
+    "options": {
+      "A": "Parasitism",
+      "B": "Commensalism",
+      "C": "Mutualism",
+      "D": "Predation"
+    },
+    "answer": "C"
+  },
+  {
+    "id": 40,
+    "sentence": "The process by which plants lose water vapor through their leaves is called",
+    "options": {
+      "A": "transpiration",
+      "B": "photosynthesis",
+      "C": "respiration",
+      "D": "guttation"
+    },
+    "answer": "A"
+  },
+  {
+    "id": 41,
+    "sentence": "Which of the following is not a component of blood?",
+    "options": {
+      "A": "Red blood cells",
+      "B": "White blood cells",
+      "C": "Platelets",
+      "D": "Chlorophyll"
+    },
+    "answer": "D"
+  },
+  {
+    "id": 42,
+    "sentence": "The stage of mitosis where chromosomes align at the equator of the cell is",
+    "options": {
+      "A": "prophase",
+      "B": "metaphase",
+      "C": "anaphase",
+      "D": "telophase"
+    },
+    "answer": "B"
+  },
+  {
+    "id": 43,
+    "sentence": "Which of the following is an example of a reflex action?",
+    "options": {
+      "A": "Writing a letter",
+      "B": "Blinking the eye",
+      "C": "Reading a book",
+      "D": "Riding a bicycle"
+    },
+    "answer": "B"
+  },
+  {
+    "id": 44,
+    "sentence": "The main source of variation in sexually reproducing organisms is",
+    "options": {
+      "A": "mutation",
+      "B": "crossing over",
+      "C": "environmental factors",
+      "D": "asexual reproduction"
+    },
+    "answer": "B"
+  },
+  {
+    "id": 45,
+    "sentence": "Which of the following is a sexually transmitted disease?",
+    "options": {
+      "A": "Malaria",
+      "B": "Tuberculosis",
+      "C": "Gonorrhea",
+      "D": "Typhoid"
+    },
+    "answer": "C"
+  },
+  {
+    "id": 46,
+    "sentence": "The part of the seed that develops into the root is the",
+    "options": {
+      "A": "plumule",
+      "B": "radicle",
+      "C": "cotyledon",
+      "D": "testa"
+    },
+    "answer": "B"
+  },
+  {
+    "id": 47,
+    "sentence": "Which of the following is a method of asexual reproduction in plants?",
+    "options": {
+      "A": "Pollination",
+      "B": "Vegetative propagation",
+      "C": "Fertilization",
+      "D": "Seed dispersal"
+    },
+    "answer": "B"
+  },
+  {
+    "id": 48,
+    "sentence": "The gas that contributes most to the greenhouse effect is",
+    "options": {
+      "A": "oxygen",
+      "B": "nitrogen",
+      "C": "carbon dioxide",
+      "D": "sulfur dioxide"
+    },
+    "answer": "C"
+  },
+  {
+    "id": 49,
+    "sentence": "Which of the following is a characteristic of all arthropods?",
+    "options": {
+      "A": "Wings",
+      "B": "Jointed appendages",
+      "C": "Gills",
+      "D": "Scales"
+    },
+    "answer": "B"
+  },
+  {
+    "id": 50,
+    "sentence": "The organ responsible for the production of sperm in males is the",
+    "options": {
+      "A": "prostate gland",
+      "B": "testis",
+      "C": "epididymis",
+      "D": "seminal vesicle"
+    },
+    "answer": "B"
   }
 ]

@@ -1,160 +1,86 @@
 import React, { useState, useEffect } from 'react';
-// import { View, Text, Button, TouchableOpacity, ActivityIndicator, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-const QuizComponent = () => {
-  const [questions, setQuestions] = useState([]);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [score, setScore] = useState(0);
-  const [showScore, setShowScore] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const [selectedAnswer, setSelectedAnswer] = useState(null);
-  const [correctAnswer, setCorrectAnswer] = useState(null); // Track the correct answer
-  const [isAnswerSubmitted, setIsAnswerSubmitted] = useState(false); // Tracks if an answer has been submitted
+const QuizComponent = ({ route }) => {
+    const { subject } = route.params; // Subject passed as a parameter
+    const [questions, setQuestions] = useState([]);
+    const [currentQuestion, setCurrentQuestion] = useState(0);
+    const [selectedOption, setSelectedOption] = useState(null);
+    const [score, setScore] = useState(0);
+    const [timeLeft, setTimeLeft] = useState(120); // 2-minute timer
 
-  useEffect(() => {
-    // Fetch data from local JSON file in the public folder
-    fetch('http://localhost:3000/Biology.json')
-      .then(response => response.json())
-      .then(data => {
-        setQuestions(data.questions); // Assuming your JSON has a "questions" field
-        setLoading(false);
-      })
-      .catch(error => {
-        console.error('Error fetching questions:', error);
-        setLoading(false);
-      });
-  }, []);
+    useEffect(() => {
+        fetch(`http://192.168.100.103:3000/quiz/${subject}`)
+            .then(response => response.json())
+            .then(data => setQuestions(data))
+            .catch(error => console.error('Error fetching quiz:', error));
+    }, []);
 
-  const handleAnswerClick = () => {
-    const currentQuestion = questions[currentQuestionIndex];
-    
-    // Compare the selected answer to the correct answer
-    if (selectedAnswer === currentQuestion.correct_answer) {
-      setScore(score + 1);
-    }
+    useEffect(() => {
+        if (timeLeft > 0) {
+            const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
+            return () => clearTimeout(timer);
+        } else {
+            alert(`Time's up! Your score: ${score}/${questions.length}`);
+        }
+    }, [timeLeft]);
 
-    // Show the correct answer and mark the answer as submitted
-    setCorrectAnswer(currentQuestion.correct_answer);
-    setIsAnswerSubmitted(true);
+    const handleAnswer = (optionKey) => {
+        const correctAnswer = questions[currentQuestion].answer;
+        setSelectedOption(optionKey);
 
-    // Wait 2 seconds before moving to the next question
-    setTimeout(() => {
-      const nextQuestionIndex = currentQuestionIndex + 1;
-      if (nextQuestionIndex < questions.length) {
-        setCurrentQuestionIndex(nextQuestionIndex);
-        setSelectedAnswer(null); // Reset the selected answer for the next question
-        setCorrectAnswer(null); // Reset the correct answer
-        setIsAnswerSubmitted(false); // Allow new answer submissions
-      } else {
-        setShowScore(true);
-      }
-    }, 2000); // 2 seconds delay to display correct and wrong answers
-  };
+        if (optionKey === correctAnswer) {
+            setScore(score + 1);
+        }
 
-  const handleChange = choice => {
-    if (!isAnswerSubmitted) {
-      setSelectedAnswer(choice); // Allow answer selection only if not yet submitted
-    }
-  };
+        setTimeout(() => {
+            if (currentQuestion < questions.length - 1) {
+                setCurrentQuestion(currentQuestion + 1);
+                setSelectedOption(null);
+            } else {
+                alert(`Quiz completed! Your score: ${score}/${questions.length}`);
+            }
+        }, 1000);
+    };
 
-  return (
-    <View style={styles.quizContainer}>
-      {loading ? (
-        <ActivityIndicator size="large" color="#0000ff" />
-      ) : (
-        <View>
-          {showScore ? (
-            <View style={styles.result}>
-              <Text style={styles.resultText}>Your Score: {score}/{questions.length}</Text>
-            </View>
-          ) : (
-            <View>
-              <Text style={styles.questionHeader}>Question {currentQuestionIndex + 1}</Text>
-              <Text style={styles.questionText}>{questions[currentQuestionIndex].question}</Text>
-              <View style={styles.answerChoices}>
-                {questions[currentQuestionIndex].incorrect_answers.map((choice, index) => (
-                  <TouchableOpacity key={index} onPress={() => handleChange(choice)}>
-                    <Text
-                      style={[
-                        styles.choice,
-                        selectedAnswer === choice && styles.selectedChoice, // Highlight selected answer
-                        isAnswerSubmitted && correctAnswer === choice && styles.correctChoice, // Highlight correct answer
-                        isAnswerSubmitted && selectedAnswer === choice && correctAnswer !== choice && styles.wrongChoice, // Highlight wrong answer
-                      ]}
-                    >
-                      {choice}
-                    </Text>
-                  </TouchableOpacity>
-                ))}
-                {/* Correct answer option */}
-                <TouchableOpacity onPress={() => handleChange(questions[currentQuestionIndex].correct_answer)}>
-                  <Text
+    if (questions.length === 0) return <Text>Loading quiz...</Text>;
+
+    const question = questions[currentQuestion];
+
+    return (
+        <View style={styles.container}>
+            <Text style={styles.timer}>Time Left: {timeLeft}s</Text>
+            <Text style={styles.question}>{question.sentence}</Text>
+
+            {Object.entries(question.options).map(([key, value]) => (
+                <TouchableOpacity
+                    key={key}
                     style={[
-                      styles.choice,
-                      selectedAnswer === questions[currentQuestionIndex].correct_answer && styles.selectedChoice, // Highlight selected correct answer
-                      isAnswerSubmitted && styles.correctChoice, // Highlight correct answer
+                        styles.option,
+                        selectedOption === key && 
+                        (key === question.answer ? styles.correct : styles.wrong)
                     ]}
-                  >
-                    {questions[currentQuestionIndex].correct_answer}
-                  </Text>
+                    onPress={() => handleAnswer(key)}
+                    disabled={selectedOption !== null}
+                >
+                    <Text style={styles.optionText}>{key}: {value}</Text>
                 </TouchableOpacity>
-              </View>
-              <Button title="Submit" onPress={handleAnswerClick} disabled={!selectedAnswer || isAnswerSubmitted} />
-            </View>
-          )}
+            ))}
+
+            <Text style={styles.score}>Score: {score}</Text>
         </View>
-      )}
-    </View>
-  );
+    );
 };
 
 const styles = StyleSheet.create({
-  quizContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#fff',
-  },
-  questionHeader: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
-  questionText: {
-    marginBottom: 20,
-  },
-  answerChoices: {
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  choice: {
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    fontSize: 16,
-    borderRadius: 5,
-    backgroundColor: '#007bff',
-    color: '#fff',
-    marginBottom: 10,
-  },
-  selectedChoice: {
-    backgroundColor: '#0056b3',
-  },
-  correctChoice: {
-    backgroundColor: '#28a745', // Green for correct answer
-  },
-  wrongChoice: {
-    backgroundColor: '#dc3545', // Red for wrong answer
-  },
-  result: {
-    backgroundColor: '#f3f3f3',
-    padding: 20,
-    marginBottom: 20,
-    borderRadius: 8,
-    alignItems: 'center',
-  },
-  resultText: {
-    fontSize: 20,
-  },
+    container: { flex: 1, padding: 20, justifyContent: 'center', backgroundColor: '#f5f5f5' },
+    timer: { fontSize: 18, textAlign: 'center', marginBottom: 10, fontWeight: 'bold' },
+    question: { fontSize: 20, fontWeight: 'bold', marginBottom: 20 },
+    option: { padding: 10, marginVertical: 5, backgroundColor: '#ddd', borderRadius: 5 },
+    optionText: { fontSize: 18 },
+    correct: { backgroundColor: 'green' },
+    wrong: { backgroundColor: 'red' },
+    score: { fontSize: 20, textAlign: 'center', marginTop: 20, fontWeight: 'bold' }
 });
 
 export default QuizComponent;

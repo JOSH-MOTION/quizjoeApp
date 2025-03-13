@@ -3,7 +3,7 @@ import HomeScreen from './HomeScreen';
 import SubjectScreen from './SubjectScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import AboutScreen from './AboutScreen';
-import ContactScreen from './contactScreen';
+import ContactScreen from './ContactScreen';
 
 const Stack = createStackNavigator();
 

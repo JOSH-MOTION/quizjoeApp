@@ -1,213 +1,207 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ActivityIndicator, StyleSheet, ScrollView, TouchableOpacity, Button, Modal, Pressable, Alert } from 'react-native';
+import { View, Text, TextInput, ActivityIndicator, TouchableOpacity, StyleSheet } from 'react-native';
 
 const SubjectScreen = ({ route }) => {
-  const { name, dataUrl, biologyUrl } = route.params;
+  const { name, dataUrl } = route.params;
   const [questions, setQuestions] = useState([]);
+  const [displayQuestions, setDisplayQuestions] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [userAnswers, setUserAnswers] = useState({});
   const [loading, setLoading] = useState(true);
-  const [selectedAnswers, setSelectedAnswers] = useState({});
-  const [currentPage, setCurrentPage] = useState(0);
-  const [isBiology, setIsBiology] = useState(false);
-  const [answerLocked, setAnswerLocked] = useState(false);
-  const [numQuestions, setNumQuestions] = useState(null);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [quizCompleted, setQuizCompleted] = useState(false);
+  const [error, setError] = useState(null);
+  const [quizFinished, setQuizFinished] = useState(false);
+  const [quizStarted, setQuizStarted] = useState(false);
+  const [questionCountInput, setQuestionCountInput] = useState(''); // User input for question count
+
+  // Shuffle and slice questions based on count
+  const prepareQuestions = (count) => {
+    const numCount = parseInt(count, 10);
+    if (isNaN(numCount) || numCount < 1 || numCount > questions.length) {
+      alert(`Please enter a valid number between 1 and ${questions.length}`);
+      return;
+    }
+    const shuffled = [...questions].sort(() => Math.random() - 0.5);
+    setDisplayQuestions(shuffled.slice(0, numCount));
+    setQuizStarted(true);
+  };
 
   useEffect(() => {
-    if (isBiology) {
-      fetch(biologyUrl)
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error('Failed to fetch Biology questions');
-          }
-          return response.json();
-        })
-        .then((data) => {
-          setQuestions(data);
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.error('Error fetching Biology questions:', error);
-          setLoading(false);
+    const fetchData = async () => {
+      if (!dataUrl) {
+        setError('Invalid subject URL');
+        setLoading(false);
+        return;
+      }
+
+      try {
+        console.log(`Fetching data from: ${dataUrl}`);
+        const response = await fetch(dataUrl, {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' },
         });
-    } else {
-      fetch(dataUrl)
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error('Failed to fetch questions');
-          }
-          return response.json();
-        })
-        .then((data) => {
-          setQuestions(data);
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.error('Error fetching questions:', error);
-          setLoading(false);
-        });
-    }
-  }, [dataUrl, biologyUrl, isBiology]);
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+        const result = await response.json();
+        console.log('Fetched data:', result);
+        setQuestions(Array.isArray(result) ? result : []);
+      } catch (err) {
+        console.error('Fetch Error:', err.message);
+        setError(`Failed to load quiz: ${err.message}`);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  useEffect(() => {
-    if (numQuestions !== null) {
-      setQuestions(prevQuestions => prevQuestions.slice(0, numQuestions));
-      setCurrentPage(0);
-      setQuizCompleted(false); // Reset quiz completion state when starting a new quiz
-    }
-  }, [numQuestions]);
+    fetchData();
+  }, [dataUrl]);
 
-  const handleAnswerPress = (questionNumber, selectedAnswer) => {
-    if (answerLocked) return;
-
-    setSelectedAnswers((prev) => ({
-      ...prev,
-      [questionNumber]: selectedAnswer,
-    }));
-
-    setAnswerLocked(true);
-
-    setTimeout(() => {
-      handleNext();
-      setAnswerLocked(false);
-    }, 3000);
+  const selectAnswer = (questionId, selectedOption) => {
+    setUserAnswers((prev) => ({ ...prev, [questionId]: selectedOption }));
   };
 
-  const handleNext = () => {
-    if (currentPage < questions.length - 1) {
-      setCurrentPage(currentPage + 1);
-    } else {
-      calculateScore();
-      setQuizCompleted(true); // Mark quiz as completed
-    }
+  const goToPrevious = () => {
+    if (currentIndex > 0) setCurrentIndex(currentIndex - 1);
   };
 
-  const handlePrevious = () => {
-    if (currentPage > 0) {
-      setCurrentPage(currentPage - 1);
-    }
+  const goToNext = () => {
+    if (currentIndex < displayQuestions.length - 1) setCurrentIndex(currentIndex + 1);
   };
 
-  const handleRestart = () => {
-    setSelectedAnswers({});
-    setCurrentPage(0);
-    setQuizCompleted(false);
-    setAnswerLocked(false);
-    setNumQuestions(null); // Optionally reset the number of questions
-    setModalVisible(true); // Re-open the question selection modal
+  const finishQuiz = () => {
+    setQuizFinished(true);
   };
 
   const calculateScore = () => {
     let score = 0;
-    questions.forEach((question) => {
-      if (selectedAnswers[question.number] === question.answer) {
-        score += 1;
-      }
+    displayQuestions.forEach((q) => {
+      if (userAnswers[q.id] === q.answer) score += 1;
     });
-   
-    Alert.alert("Quiz Complete", `Your score is ${score}/${questions.length}`);
+    return score;
   };
 
-  const currentQuestion = questions[currentPage];
-  const userAnswer = selectedAnswers[currentQuestion?.number];
+  if (loading) {
+    return (
+      <View style={styles.loader}>
+        <ActivityIndicator size="large" color="#007bff" />
+        <Text style={styles.loadingText}>Loading {name} Quiz...</Text>
+      </View>
+    );
+  }
 
-  useEffect(() => {
-    if (!answerLocked) {
-      setSelectedAnswers((prev) => ({
-        ...prev,
-        [currentQuestion?.number]: null,
-      }));
-    }
-  }, [currentPage, answerLocked, currentQuestion]);
+  if (error) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.errorText}>{error}</Text>
+        <Text style={styles.errorSubText}>Please check your network or server.</Text>
+      </View>
+    );
+  }
 
-  const handleSelectQuestions = (num) => {
-    if (num < 5) {
-      Alert.alert("Invalid Selection", "You must select at least 5 questions.");
-      return;
-    }
-    setNumQuestions(num);
-    setModalVisible(false);
-  };
+  if (questions.length === 0) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.errorText}>No questions available for {name}</Text>
+      </View>
+    );
+  }
+
+  if (!quizStarted) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.title}>{name} Quiz</Text>
+        <Text style={styles.selectionText}>
+          How many questions would you like to answer? (1 - {questions.length})
+        </Text>
+        <TextInput
+          style={styles.input}
+          value={questionCountInput}
+          onChangeText={setQuestionCountInput}
+          placeholder="Enter number"
+          keyboardType="numeric"
+          autoFocus={true}
+        />
+        <View style={styles.selectionContainer}>
+          <TouchableOpacity
+            style={styles.selectionButton}
+            onPress={() => prepareQuestions(questionCountInput)}
+          >
+            <Text style={styles.selectionButtonText}>Start Quiz</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.selectionButton}
+            onPress={() => prepareQuestions(questions.length)}
+          >
+            <Text style={styles.selectionButtonText}>All Questions ({questions.length})</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  }
+
+  if (quizFinished) {
+    const score = calculateScore();
+    return (
+      <View style={styles.container}>
+        <Text style={styles.title}>{name} Quiz - Results</Text>
+        <View style={styles.resultContainer}>
+          <Text style={styles.resultText}>Score: {score} / {displayQuestions.length}</Text>
+          <Text style={styles.percentageText}>
+            {((score / displayQuestions.length) * 100).toFixed(2)}%
+          </Text>
+        </View>
+      </View>
+    );
+  }
+
+  const currentQuestion = displayQuestions[currentIndex];
+  const selectedAnswer = userAnswers[currentQuestion.id];
 
   return (
     <View style={styles.container}>
-      <View style={styles.headerContainer}>
-        {!numQuestions && (
-          <Button title="Select Number of Questions" onPress={() => setModalVisible(true)} />
-        )}
-        <Text style={styles.header}>Subject: {name}</Text>
-      </View>
-      {loading ? (
-        <ActivityIndicator size="large" color="#0000ff" />
-      ) : (
-        <ScrollView contentContainerStyle={styles.scrollView}>
-          {currentQuestion ? (
-            <View style={styles.questionContainer}>
-              <Text style={styles.questionText}>{currentQuestion.sentence}</Text>
-              {Object.entries(currentQuestion.options).map(([key, value]) => {
-                const isCorrect = key === currentQuestion.answer;
-                const isSelected = userAnswer === key;
-                const answerStyle = [
-                  styles.answerButton,
-                  isSelected && { backgroundColor: isCorrect ? '#4CAF50' : '#F44336' },
-                  answerLocked && isCorrect && { backgroundColor: '#4CAF50' },
-                ];
+      <Text style={styles.title}>{name} Quiz</Text>
+      <Text style={styles.questionNumber}>
+        Question {currentIndex + 1} of {displayQuestions.length}
+      </Text>
+      <View style={styles.questionCard}>
+        <Text style={styles.questionText}>{currentQuestion.sentence}</Text>
+        {['A', 'B', 'C', 'D'].map((option) => {
+          const isSelected = selectedAnswer === option;
+          const isCorrect = option === currentQuestion.answer;
+          const backgroundColor = isSelected
+            ? isCorrect
+              ? '#d4edda' // Green
+              : '#f8d7da' // Red
+            : '#f9f9f9'; // Default
 
-                return (
-                  <TouchableOpacity
-                    key={key}
-                    style={answerStyle}
-                    onPress={() => handleAnswerPress(currentQuestion.number, key)}
-                    disabled={answerLocked}
-                  >
-                    <Text style={styles.answerText}>
-                      {key}. {value}
-                    </Text>
-                  </TouchableOpacity>
-                );
-              })}
-              {userAnswer && (
-                <Text style={styles.feedbackText}>
-                  {userAnswer === currentQuestion.answer ? 'Correct!' : 'Incorrect! Correct answer shown.'}
-                </Text>
-              )}
-            </View>
-          ) : (
-            <Text>No questions available</Text>
-          )}
-          <View style={styles.navigationButtons}>
-            <Button title="Previous" onPress={handlePrevious} disabled={currentPage === 0} />
-            <Button title="Next" onPress={handleNext} disabled={currentPage === questions.length - 1 || answerLocked} />
-          </View>
-          {quizCompleted && (
-            <View style={styles.restartButtonContainer}>
-              <Button title="Restart Quiz" onPress={handleRestart} />
-            </View>
-          )}
-        </ScrollView>
-      )}
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(false);
-        }}
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>Select Number of Questions</Text>
-            {[5, 10, 15, 20].map((num) => (
-              <Pressable key={num} style={styles.modalButton} onPress={() => handleSelectQuestions(num)}>
-                <Text style={styles.modalButtonText}>{num}</Text>
-              </Pressable>
-            ))}
-            <Pressable style={styles.modalCloseButton} onPress={() => setModalVisible(false)}>
-              <Text style={styles.modalCloseButtonText}>Cancel</Text>
-            </Pressable>
-          </View>
-        </View>
-      </Modal>
+          return (
+            <TouchableOpacity
+              key={option}
+              style={[styles.optionButton, { backgroundColor }]}
+              onPress={() => selectAnswer(currentQuestion.id, option)}
+            >
+              <Text style={styles.optionText}>
+                {option}: {currentQuestion.options[option]}
+              </Text>
+            </TouchableOpacity>
+          );
+        })}
+      </View>
+      <View style={styles.navigationContainer}>
+        <TouchableOpacity
+          style={[styles.navButton, currentIndex === 0 && styles.disabledButton]}
+          onPress={goToPrevious}
+          disabled={currentIndex === 0}
+        >
+          <Text style={styles.navButtonText}>Previous</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.navButton}
+          onPress={currentIndex === displayQuestions.length - 1 ? finishQuiz : goToNext}
+        >
+          <Text style={styles.navButtonText}>
+            {currentIndex === displayQuestions.length - 1 ? 'Finish' : 'Next'}
+          </Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -215,102 +209,136 @@ const SubjectScreen = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
-    backgroundColor: '#F5F5F5',
+    padding: 20,
+    backgroundColor: '#f0f2f5',
   },
-  headerContainer: {
-    marginBottom: 10,
-  },
-  header: {
-    fontSize: 22,
+  title: {
+    fontSize: 28,
     fontWeight: 'bold',
     color: '#333',
+    textAlign: 'center',
+    marginVertical: 20,
   },
-  scrollView: {
-    paddingBottom: 30,
+  selectionText: {
+    fontSize: 18,
+    color: '#666',
+    textAlign: 'center',
+    marginBottom: 20,
   },
-  questionContainer: {
-    marginBottom: 10,
+  input: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 10,
     padding: 10,
+    fontSize: 16,
+    textAlign: 'center',
+    marginBottom: 20,
     backgroundColor: '#fff',
-    borderRadius: 8,
+  },
+  selectionContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  selectionButton: {
+    backgroundColor: '#007bff',
+    padding: 15,
+    borderRadius: 10,
+    minWidth: 120,
+    alignItems: 'center',
+  },
+  selectionButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  questionNumber: {
+    fontSize: 16,
+    color: '#666',
+    textAlign: 'center',
+    marginBottom: 10,
+  },
+  questionCard: {
+    backgroundColor: '#fff',
+    borderRadius: 15,
+    padding: 20,
+    elevation: 5,
     shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowOffset: { width: 0, height: 1 },
-    shadowRadius: 3,
-    elevation: 2,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
   },
   questionText: {
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: '600',
-    marginBottom: 10,
     color: '#333',
+    marginBottom: 20,
   },
-  answerButton: {
-    paddingVertical: 8,
-    paddingHorizontal: 10,
-    borderRadius: 6,
-    marginBottom: 8,
-    backgroundColor: '#E0E0E0',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#ddd',
+  optionButton: {
+    padding: 12,
+    borderRadius: 10,
+    marginVertical: 5,
   },
-  answerText: {
-    fontSize: 14,
-    color: '#333',
+  optionText: {
+    fontSize: 16,
+    color: '#444',
   },
-  feedbackText: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    marginTop: 5,
-    color: '#007AFF',
-    textAlign: 'center',
-  },
-  navigationButtons: {
+  navigationContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 10,
-  },
-  restartButtonContainer: {
     marginTop: 20,
+    paddingBottom: 20,
   },
-  modalContainer: {
+  navButton: {
+    backgroundColor: '#007bff',
+    padding: 12,
+    borderRadius: 10,
+    minWidth: 100,
+    alignItems: 'center',
+  },
+  disabledButton: {
+    backgroundColor: '#ccc',
+  },
+  navButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  loader: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
-  modalContent: {
-    backgroundColor: '#fff',
-    borderRadius: 8,
-    padding: 20,
-    width: '80%',
+  loadingText: {
+    marginTop: 10,
+    fontSize: 16,
+    color: '#666',
   },
-  modalTitle: {
+  errorText: {
     fontSize: 18,
+    color: 'red',
+    textAlign: 'center',
+    marginTop: 20,
+  },
+  errorSubText: {
+    fontSize: 14,
+    color: '#666',
+    textAlign: 'center',
+    marginTop: 10,
+  },
+  resultContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  resultText: {
+    fontSize: 32,
     fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  modalButton: {
-    paddingVertical: 10,
-    borderRadius: 6,
-    backgroundColor: '#ddd',
-    marginBottom: 10,
-    alignItems: 'center',
-  },
-  modalButtonText: {
-    fontSize: 16,
-  },
-  modalCloseButton: {
-    paddingVertical: 10,
-    borderRadius: 6,
-    backgroundColor: '#ccc',
-    alignItems: 'center',
-  },
-  modalCloseButtonText: {
     color: '#333',
-    fontSize: 16,
+    marginBottom: 10,
+  },
+  percentageText: {
+    fontSize: 24,
+    color: '#666',
   },
 });
 

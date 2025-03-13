@@ -2,16 +2,19 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ImageBackground } from 'react-native';
 
 const HomeScreen = ({ navigation }) => {
+
   const handlePress = (subject) => {
-    let dataUrl = '';
-    if (subject === 'Biology') {
-      dataUrl = 'http://192.168.43.238:3000/Biology.json';
-    } else if (subject === 'English') {
-      dataUrl = 'http://192.168.43.238:3000/English.json';
-    } else if (subject === 'Mathematics') {
-      dataUrl = 'http://192.168.43.238:3000/Mathematics.json';
+    let dataUrl = "";
+
+    if (subject === "Biology") {
+      dataUrl = "http://192.168.100.103:3000/Biology.json";  
+    } else if (subject === "English") {
+      dataUrl = "http://192.168.100.103:3000/English.json";  
+    } else if (subject === "Mathematics") {
+      dataUrl = "http://192.168.100.103:3000/Mathematics.json";  
     }
-    navigation.navigate('Subject', { name: subject, dataUrl });
+
+    navigation.navigate("Subject", { name: subject, dataUrl });
   };
 
   return (
@@ -47,7 +50,7 @@ const styles = StyleSheet.create({
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Dark overlay
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   container: {
     flex: 1,
@@ -81,7 +84,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 26,
     fontWeight: 'bold',
-    color: '#fff', // White text color for visibility
+    color: '#fff',
     marginBottom: 30,
   },
   buttonContainer: {
